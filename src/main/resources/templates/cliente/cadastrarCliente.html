@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add user</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Cadastro de Cliente no Banco Projeto #1</h1>
+
+<form action="#" th:action="@{/cadastrarCliente}" th:object="${cliente}" method="post">
+    <p>
+        Nome: <input type="text" th:field="*{nome}">
+    </p>
+    <p>
+        CPF: <input type="text"  placeholder="Ex.: 000.000.000-00" th:field="*{cpf}">
+    </p>
+    <p>
+        Renda Mensal: <input type="text" th:field="*{renda}">
+    </p>
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset"> <a href="banco/escolherTipoDeConta">
+        <input type="submit" value="Voltar" /></a>
+</form>
+    </p>
+</form>
+
+</body>
+</html>

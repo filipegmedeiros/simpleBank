@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add user</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Add User</h1>
+
+<form action="#" th:action="@{/cadastrarContaPoupanca}" th:object="${conta}" method="post">
+    <p>
+        Limite: <input type="text" th:field="*{limite}">
+    </p>
+
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset"> <a href="/index">
+        <input type="submit" value="Voltar" /></a>
+    </p>
+</form>
+
+</form>
+
+</body>
+</html>

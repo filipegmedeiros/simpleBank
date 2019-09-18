@@ -4,6 +4,7 @@ public class Cliente {
 
     private String nome;
     private String cpf;
+    private Double renda;
 
     public String getNome() {
         return nome;
@@ -19,5 +20,13 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Double getRenda() {
+        return renda;
+    }
+
+    public void setRenda(Double renda) {
+        this.renda = renda;
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Informaçoes do Cliente</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Informaçoes do Cliente</h1>
+
+<p th:text="'Name: ' + ${cliente.nome}"></p>
+<p th:text="'Cpf: ' + ${cliente.cpf}"></p>
+<p th:text="'Renda: ' + ${cliente.renda}"></p>
+<a href="/cadastrarCliente">Submit another message</a>
+
+</body>
+</html>
