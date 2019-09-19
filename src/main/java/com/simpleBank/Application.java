@@ -34,10 +34,22 @@ public class Application {
 
         conta01.setClientesCadastrados(map);
 
+        conta01.extrato(111,"segredo");
         conta01.depositar(111,1000.0);
+        System.out.println("Depositado 1000 na Conta 111");
+        conta01.extrato(111,"segredo");
+
+        conta01.extrato(222,"segredo2");
+        conta01.depositar(222,1000.0);
+        System.out.println("Depositado 1000 na Conta 222");
+        conta01.extrato(222,"segredo2");
 
 
-        System.out.println(conta02.getSaldo());
+        conta01.transferir(111,"segredo",222,500);
+        System.out.println("Transferido 500 da Conta 111 para a  Conta 222");
+
+        conta01.extrato(111,"segredo");
+        conta01.extrato(222,"segredo2");
 
     }
 }

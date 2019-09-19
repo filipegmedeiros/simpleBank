@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -29,7 +28,7 @@ public class Conta {
 
     public void depositar(int numeroDaConta, double valor ){
         clientesCadastrados.forEach((Conta,Cliente)->{
-                if (numeroDaConta == Conta.getNumeroDaConta && valor < Conta.getLimite()) {
+                if (numeroDaConta == Conta.getNumeroDaConta() && valor < Conta.getLimite()) {
                     Conta.setSaldo(Conta.getSaldo() + valor);
 
                 }
@@ -45,10 +44,11 @@ public class Conta {
         });
     }
 
-    public void transferir(double numeroDaContaQueVaiTransferir, String senha, double numeroDaContaQueVaiReceber , double valorAserTransferido ){
+    public void transferir(double numeroDaContaQueVaiTransferir, String senha, int numeroDaContaQueVaiReceber , double valorQueVaiSerTransferido ){
         clientesCadastrados.forEach((Conta,Cliente)->{
-            if (numeroDaContaQueVaiTransferir == Conta.numeroDaConta && senha.equals(Conta.senha) && valorAserTransferido < Conta.getSaldo()) {
-                depositar(numeroDaContaQueVaiReceber,valorAserTransferido);
+            if (numeroDaContaQueVaiTransferir == Conta.numeroDaConta && senha.equals(Conta.senha) && valorQueVaiSerTransferido < Conta.getSaldo()) {
+                depositar(numeroDaContaQueVaiReceber,valorQueVaiSerTransferido);
+                sacar(numeroDaContaQueVaiTransferir, senha, valorQueVaiSerTransferido);
             }
         });
     }
@@ -56,9 +56,11 @@ public class Conta {
     public void extrato(double numeroDaConta, String senha){
         clientesCadastrados.forEach((Conta,Cliente)->{
             if (numeroDaConta == Conta.numeroDaConta && senha.equals(Conta.senha)){
+                System.out.println("<=============EXTRATO===============>");
                 System.out.println("Nome:" + Cliente.getNome());
                 System.out.println("Saldo:" + Conta.getSaldo());
                 System.out.println("Limite:" + Conta.getLimite());
+                System.out.println("<===============FIM=================>");
 
             }
         });
