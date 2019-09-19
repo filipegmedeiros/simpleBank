@@ -1,23 +1,37 @@
 package com.simpleBank.model;
 
-import java.util.Map;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Conta {
 
-    Map<Conta,Cliente> clientesCadastrados;
+    protected Map<Conta,Cliente> clientesCadastrados = new HashMap<Conta,Cliente>();;
 
-    protected double numeroDaConta;
+    protected int numeroDaConta;
     protected Cliente cliente;
     protected double saldo;
     protected double limite;
     protected String senha;
 
+    public void setLimite(double limite) {
+        this.limite = limite*0.3;
+    }
 
 
-    public void depositar(double numeroDaConta, double valor ){
+    public void depositar(int numeroDaConta, double valor ){
         clientesCadastrados.forEach((Conta,Cliente)->{
-                if (numeroDaConta == Conta.numeroDaConta && numeroDaConta < Conta.getLimite()) {
-                    setSaldo(getSaldo() + valor);
+                if (numeroDaConta == Conta.getNumeroDaConta && valor < Conta.getLimite()) {
+                    Conta.setSaldo(Conta.getSaldo() + valor);
+
                 }
 
         });
@@ -26,12 +40,12 @@ public class Conta {
     public void sacar(double numeroDaConta, String senha, double valorAserSacado ){
         clientesCadastrados.forEach((Conta,Cliente)->{
             if (numeroDaConta == Conta.numeroDaConta && senha.equals(Conta.senha) && valorAserSacado < Conta.getSaldo()) {
-                setSaldo(getSaldo() - valorAserSacado);
+                Conta.setSaldo(Conta.getSaldo() - valorAserSacado);
             }
         });
     }
 
-    public void transferir(double numeroDaContaQueVaiTransferir, double numeroDaContaQueVaiReceber , String senha, double valorAserTransferido ){
+    public void transferir(double numeroDaContaQueVaiTransferir, String senha, double numeroDaContaQueVaiReceber , double valorAserTransferido ){
         clientesCadastrados.forEach((Conta,Cliente)->{
             if (numeroDaContaQueVaiTransferir == Conta.numeroDaConta && senha.equals(Conta.senha) && valorAserTransferido < Conta.getSaldo()) {
                 depositar(numeroDaContaQueVaiReceber,valorAserTransferido);
@@ -50,43 +64,5 @@ public class Conta {
         });
     }
 
-    public Map<Conta, Cliente> getClientesCadastrados() {
-        return clientesCadastrados;
-    }
 
-    public void setClientesCadastrados(Map<Conta, Cliente> clientesCadastrados) {
-        this.clientesCadastrados = clientesCadastrados;
-    }
-
-    public double getNumeroDaConta() {
-        return numeroDaConta;
-    }
-
-    public void setNumeroDaConta(double numeroDaConta) {
-        this.numeroDaConta = numeroDaConta;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
-    public double getLimite() {
-        return limite;
-    }
-
-    public void setLimite(double limite) {
-        this.limite = limite;
-    }
 }

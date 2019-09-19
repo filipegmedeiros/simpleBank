@@ -14,14 +14,14 @@ public class ContaController {
 
 
     @GetMapping("/cadastrarContaPoupanca")
-    public String sendForm(ContaPoupanca conta) {
+    public String sendForm(ContaPoupanca contaPoupanca) {
 
         return "banco/cadastrarContaPoupanca";
     }
 
 
     @PostMapping("/cadastrarContaPoupanca")
-    public String processForm(ContaPoupanca conta) {
+    public String processForm(ContaPoupanca contaPoupanca) {
 
         return "banco/extrato";
     }
