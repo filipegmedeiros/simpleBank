@@ -1,9 +1,12 @@
 plugins {
     id 'java'
+    id "io.freefair.lombok" version "4.1.0"
     id 'com.gradle.build-scan' version '2.0.2'
     id 'org.springframework.boot' version '2.0.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.7.RELEASE'
 }
+
+
 
 group 'com.simpleBank'
 version '1.0'
@@ -19,6 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 
     components {
         withModule('org.springframework:spring-beans') {
