@@ -8,17 +8,11 @@
 
 <h1>Add User</h1>
 
-<form action="#" th:action="@{/cadastrarContaPoupanca}" th:object="${contaPoupanca}" method="post">
+<form action="#" th:action="@{/transferir}" th:object="${contaPoupanca}" method="post">
     <p>
-        Conta: <input type="text" th:field="*{numeroDaConta}" readonly >
-    </p>
+        Numero da Conta: <input type="text" th:field="*{numeroDaConta}">
+        Senha>: <input type="password" th:field="*{senha}">
 
-    <p>
-        Senha: <input type="text" th:field="*{senha}" >
-    </p>
-
-    <p>
-        Limite: <input type="text" th:field="*{limite}">
     </p>
 
     <p>

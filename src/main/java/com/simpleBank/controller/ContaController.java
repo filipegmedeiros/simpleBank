@@ -8,22 +8,36 @@ import org.springframework.web.bind.annotation.*;
 public class ContaController {
 
     @RequestMapping("/conta")
-    public String conta(){
+    public String conta() {
         return "banco/escolherTipoDeConta";
     }
 
 
     @GetMapping("/cadastrarContaPoupanca")
-    public String sendForm(ContaPoupanca conta) {
+    public String sendForm(ContaPoupanca contaPoupanca) {
 
         return "banco/cadastrarContaPoupanca";
     }
 
 
     @PostMapping("/cadastrarContaPoupanca")
-    public String processForm(ContaPoupanca conta) {
+    public String processForm(ContaPoupanca contaPoupanca) {
 
         return "banco/extrato";
+    }
+
+
+    @GetMapping("/transferir")
+    public String sendForm2(ContaPoupanca contaPoupanca) {
+
+        return "banco/transferir";
+    }
+
+
+    @PostMapping("/transferir")
+    public String processForm2(ContaPoupanca contaPoupanca) {
+
+        return "banco/verificar";
     }
 
 }
