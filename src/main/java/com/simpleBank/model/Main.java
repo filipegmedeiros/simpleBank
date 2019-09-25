@@ -20,7 +20,6 @@ public class Main {
         this.loop = true;
     }
 
-
     public Cliente cadastroCliente() {
         String nome;
         String cpf;
@@ -36,9 +35,9 @@ public class Main {
         renda = cin.nextDouble();
 
         Cliente cliente = new Cliente(nome, cpf, renda);
+        bancoJavaOne.setCliente(cliente);
         return cliente;
     }
-
 
     public Conta cadastroConta(Cliente cliente) {
 
@@ -48,80 +47,74 @@ public class Main {
         System.out.println("03) Voltar ao Menu");
         System.out.println("Para Sair do Sistema, basta escolher uma opcao invalida.");
 
-        Conta conta;
         String senha;
+        Scanner cin = new Scanner(System.in);
+        int escolha = cin.nextInt();
+        switch (escolha) {
 
-        System.out.println("Digite Sua Senha: ");
-        senha = cin.next();
-        conta = new ContaPoupanca((100000 + rnd.nextInt(900000)), 0, cliente.getRenda(), senha);
-        return conta;
+            case 1:
+                System.out.println("Digite Sua Senha: ");
+                senha = cin.next();
+                ContaCorrente contaCorrente = new ContaCorrente((100000 + rnd.nextInt(900000)), 0, cliente.getRenda(), senha);
+                return contaCorrente;
+
+            case 2:
+                System.out.println("Digite Sua Senha: ");
+                senha = cin.next();
+                ContaPoupanca contaPoupanca = new ContaPoupanca((100000 + rnd.nextInt(900000)), 0, cliente.getRenda(), senha);
+                return contaPoupanca;
+
+            case 3:
+                iniciarBanco();
+
+            default:
+                setLoop(false);
+
+        }
+        return null;
     }
 
     public void criarConta() {
+        Cliente a = new Cliente("f","2",100.0);
 
-        /*@Todo:
-            Existe no ArrayList Cliente com esse Nome e CPF?
-            IF(true):
-              cadastroConta(cliente)
-              bancoJavaOne.setContas(cadastroConta(cliente),cliente);
-            ELSE
-                cadastrarCliente()
-                bancoJavaOne.setContas(cadastroConta(cliente),cliente);
-         */
-
-        Cliente cliente = cadastroCliente();
-        Conta conta = cadastroConta(cliente);
-        bancoJavaOne.setContas(conta, cliente);
-
-        System.out.println("Digite Sua Senha: ");
-        String senha = cin.next();
-        bancoJavaOne.extrato(conta.getNumeroDaConta(), senha);
-        bancoJavaOne.depositar(conta.getNumeroDaConta(), 1000);
-
+        System.out.println("Digite Seu Nome: ");
+        String nome = cin.nextLine();
+        System.out.println("Digite Seu Cpf: ");
+        String cpf = cin.next();
+        if (bancoJavaOne.existeCliente(nome, cpf) == true)
+            cadastroConta(bancoJavaOne.buscarCliente(nome, cpf));
+        else {
+            Cliente novoCliente = cadastroCliente();
+            bancoJavaOne.setContas(cadastroConta(novoCliente), novoCliente);
+        }
 
     }
 
     public void acessarConta() {
-        /*@Todo:
-            Existe no Map a Conta?
-            IF(true):
-              menu de deposito/ saque/ transferencia
-            ELSE IF
-                desejar criar uma conta?
-            ELSE
-                sair do programa
-         */
+
         System.out.println("01) Digite o numero da Conta: ");
         int numeroDaConta = cin.nextInt();
         System.out.println("Digite sua Senha: ");
         String senha = cin.next();
 
-        double valor;
-
-
         if (bancoJavaOne.existeConta(numeroDaConta, senha)) {
             System.out.println("Digite valor para ser sacado: ");
-            valor = cin.nextDouble();
+            double valor = cin.nextDouble();
             bancoJavaOne.sacar(numeroDaConta, senha, valor);
             bancoJavaOne.extrato(numeroDaConta, senha);
         } else {
-            System.out.println("Digite valor para deposito: ");
-            valor = cin.nextDouble();
-            bancoJavaOne.depositar(numeroDaConta, valor);
-            bancoJavaOne.extrato(numeroDaConta, senha);
+            System.out.println("Conta Inexistente, deseja criar?");
+            iniciarBanco();
         }
 
-
     }
-
 
     public void iniciarBanco() {
 
         System.out.println("<============ MENU ============>");
-        System.out.println("01) Cadastrar Cliente");
-        System.out.println("02) Criar uma Conta");
-        System.out.println("03) Acessar Conta");
-        System.out.println("04) Voltar ao Menu");
+        System.out.println("01) Criar uma Conta");
+        System.out.println("02) Acessar Conta");
+        System.out.println("03) Voltar ao Menu");
         System.out.println("Para Sair do Sistema, basta escolher uma opcao invalida.");
 
         while (loop) {

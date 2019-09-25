@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @EqualsAndHashCode
 public class BancoController {
@@ -16,6 +17,7 @@ public class BancoController {
 
     public BancoController() {
         this.contas = new HashMap<Conta, Cliente>();
+        this.clientes = new ArrayList<Cliente>();
 
     }
 
@@ -24,9 +26,38 @@ public class BancoController {
 
     }
 
+    public boolean existeCliente(String nome, String cpf) {
+        if (clientes.isEmpty())
+            return false;
+        else {
+            for (Cliente cliente : clientes) {
+                if (cliente.getNome() == nome && cliente.getCpf() == cpf)
+                    return true;
+                return false;
+            }
+        }
+        return false;
+    }
 
     public boolean existeConta(int numeroDaConta, String senha){
+        AtomicInteger a = new AtomicInteger();
+        contas.forEach((conta, cliente) -> {
+            if (conta.getNumeroDaConta() == numeroDaConta
+                    && senha.equals(conta.getSenha())){
+
+                a.set(1);
+            }
+        });
+        if (a.get() == 1)
+            return true;
         return false;
+    }
+
+    public Cliente buscarCliente(String nome, String cpf){
+        for (Cliente cliente: clientes){
+            return cliente;
+        }
+        return null;
     }
 
     public void setContas(Conta conta, Cliente cliente) {
